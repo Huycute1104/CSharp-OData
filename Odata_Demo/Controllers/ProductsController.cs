@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Repository.Models;
@@ -51,7 +52,7 @@ namespace Odata_Demo.Controllers
         }
 
         // PUT: odata/Products(5)
-        public IActionResult Put(int key, [FromBody] Product update)
+        public IActionResult Put([FromODataUri] int key, [FromBody] Product updatedProduct)
         {
             if (!ModelState.IsValid)
             {
@@ -64,17 +65,23 @@ namespace Odata_Demo.Controllers
                 return NotFound();
             }
 
-            existingProduct.ProductName = update.ProductName;
-            existingProduct.CategoryId = update.CategoryId;
-            existingProduct.Weight = update.Weight;
-            existingProduct.UnitPrice = update.UnitPrice;
-            existingProduct.UnitsInStock = update.UnitsInStock;
+            existingProduct.ProductName = updatedProduct.ProductName;
+            existingProduct.CategoryId = updatedProduct.CategoryId;
+            existingProduct.Weight = updatedProduct.Weight;
+            existingProduct.UnitPrice = updatedProduct.UnitPrice;
+            existingProduct.UnitsInStock = updatedProduct.UnitsInStock;
 
-            _unitOfWork.Save();
+            try
+            {
+                _unitOfWork.Save();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
 
-            return Updated(existingProduct);
+            return Ok(existingProduct); // Trả về thông tin của sản phẩm đã được cập nhật
         }
-
         // DELETE: odata/Products(5)
         public IActionResult Delete(int key)
         {
