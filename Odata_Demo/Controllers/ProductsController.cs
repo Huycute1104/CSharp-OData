@@ -80,8 +80,9 @@ namespace Odata_Demo.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
 
-            return Ok(existingProduct); // Trả về thông tin của sản phẩm đã được cập nhật
+            return Ok(existingProduct); 
         }
+
         // DELETE: odata/Products(5)
         public IActionResult Delete(int key)
         {
