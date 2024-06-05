@@ -42,7 +42,8 @@ namespace Odata_Demo.Controllers
             {
                 return BadRequest(ModelState);
             }
-
+            var productlast = _unitOfWork.ProductRepo.Get().LastOrDefault();
+            product.ProductId = productlast.ProductId + 1;
             _unitOfWork.ProductRepo.Add(product);
             _unitOfWork.Save();
 
