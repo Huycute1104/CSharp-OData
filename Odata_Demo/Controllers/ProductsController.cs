@@ -19,7 +19,7 @@ namespace Odata_Demo.Controllers
         [EnableQuery]
         public IActionResult Get()
         {
-            var products = _unitOfWork.ProductRepo.Get();
+            var products = _unitOfWork.ProductRepo.Get(includeProperties: "Category");
             return Ok(products);
         }
 
