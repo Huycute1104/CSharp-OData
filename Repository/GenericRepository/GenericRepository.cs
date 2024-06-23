@@ -75,5 +75,9 @@ namespace Repository.GenericRepository
             dbSet.Update(item);
             dbContext.SaveChanges();
         }
+        public T GetById(params object[] keyValues)
+        {
+            return dbSet.Find(keyValues);
+        }
     }
 }

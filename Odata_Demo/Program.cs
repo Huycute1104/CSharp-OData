@@ -46,5 +46,11 @@ static IEdmModel GetEdmModel()
 {
     var odataBuilder = new ODataConventionModelBuilder();
     odataBuilder.EntitySet<Product>("Products");
+    odataBuilder.EntitySet<Member>("Members");
+    odataBuilder.EntitySet<Order>("Orders");
+    odataBuilder.EntitySet<Category>("Categories");
+/*    odataBuilder.EntitySet<OrderDetail>("OrderDetails");*/
+
+
     return odataBuilder.GetEdmModel();
 }
