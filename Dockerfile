@@ -3,7 +3,7 @@
 # Giai đoạn 1: Build
 FROM mcr.microsoft.com/dotnet/sdk:6.0-focal AS build
 WORKDIR /src
-COPY ["Odata_Demo/Odata_Demo.csproj", "Odata_Demo.NETCoreWebAPI/"]
+COPY ["Odata_Demo/Odata_Demo.csproj", "Odata_Demo/"]
 RUN dotnet restore "Odata_Demo/Odata_Demo.csproj"
 COPY . .
 WORKDIR "/src/Odata_Demo"

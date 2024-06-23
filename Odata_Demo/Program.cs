@@ -24,13 +24,18 @@ builder.Services.AddControllers().AddOData(opt => opt.Select().Expand().Filter()
 builder.Services.AddDbContext<FStoreDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB")));
 
+builder.Services.AddHealthChecks();
 var app = builder.Build();
 
+app.MapHealthChecks("/user");
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        c.RoutePrefix = string.Empty;
+    });
 }
 
 app.UseHttpsRedirection();

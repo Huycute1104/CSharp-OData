@@ -25,7 +25,7 @@ namespace Odata_Demo.DependencyInjection
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, true)
                 .Build();
-            var str = config["ConnectionStrings:MyDB"];
+            var str = config["ConnectionStrings:DefaultConnection"];
             return str;
         }
     }
